@@ -1,0 +1,33 @@
+'''Given two integers n and k, the task is to find all valid combinations of k numbers that adds up to n based on the following conditions:
+
+Only numbers from the range [1, 9] used.
+Each number can only be used at most once.
+Note: You can return the combinations in any order, the driver code will print them in sorted order.
+
+Examples:
+
+Input: n = 9, k = 3
+Output: [[1, 2, 6], [1, 3, 5], [2, 3, 4]]
+Explanation: There are three valid combinations of 3 numbers that sum to 9: [1 ,2, 6], [1, 3, 5] and [2, 3, 4].
+Input: n = 3, k = 3
+Output: []
+Explanation: It is not possible to pick 3 distinct numbers from 1 to 9 that sum to 3, so no valid combinations exist.'''
+
+class Solution:
+    def combinationSum(self, n, k):
+        # code here
+        res=[]
+        def backtrack(start,curr_sum,path):
+            if curr_sum==n and len(path)==k:
+                res.append(path[:])
+                return 
+            if curr_sum>n or len(path)>k:
+                return
+            for i in range(start,10):
+                path.append(i)
+                backtrack(i+1,curr_sum+i,path)
+                path.pop()
+        backtrack(1,0,[])
+        return res
+            
+                
